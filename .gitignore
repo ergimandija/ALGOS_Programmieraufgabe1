@@ -1,0 +1,28 @@
+# Compiled Java files
+*.class
+
+# NetBeans build folders
+/build/
+/dist/
+/nbbuild/
+/nbdist/
+/.nb-gradle/
+
+# NetBeans private project settings (machine specific)
+/nbproject/private/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+
+# Package files
+*.jar
+*.war
+*.ear
