@@ -85,14 +85,21 @@ public class ALGOS_ProgrammierAufgabe1 {
                     break;
                 }
                 case 5: {
-                    
                     break;
                 }
                     
-                case 6:
+                case 6: {
+                    System.out.println("Geben Sie den Filename der Datei ein:");
+                    String filename = scan.nextLine();
+                    htable.save(filename);
                     break;
-                case 7:
+                }
+                case 7: {
+                    System.out.println("Geben Sie den Filename der Datei ein:");
+                    String filename = scan.nextLine();
+                    htable.load(filename);
                     break;
+                }
                 case 8:
                     keepRunning  = false;
                     break;

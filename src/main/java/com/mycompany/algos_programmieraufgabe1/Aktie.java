@@ -4,11 +4,13 @@
  */
 package com.mycompany.algos_programmieraufgabe1;
 
+import java.io.Serializable;
+
 /**
  *
  * @author User
  */
-public class Aktie {
+public class Aktie implements Serializable {
     private String name;
     private String WKN;
     private String kurzel;
