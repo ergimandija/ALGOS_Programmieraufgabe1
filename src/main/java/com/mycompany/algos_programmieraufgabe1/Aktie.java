@@ -47,9 +47,58 @@ public class Aktie implements Serializable {
     
     public void showKurswerte(){
         System.out.println("");
+        double min=0,max=0;
         for(Kurswert k:kurswerte){
-            
+            if(k!=null && (k.getClose()<min || min==0)) {
+                min=k.getClose();
+            }
+            if(k!=null && (k.getClose()>max || max==0)) {
+                max=k.getClose();
+            }
         }
+
+        double range = max-min;
+        int height=10;
+        int days=30;
+
+        // Chart zeichnen
+        for (int h = height; h >= 0; h--) {
+
+            double level = min + (range / height) * h;
+            System.out.printf("%6.2f |", level);
+
+            for (int d = 0; d < days; d++) {
+
+                if (kurswerte[d] == null) {
+                    System.out.print(" ");
+                    continue;
+                }
+
+                double value = kurswerte[d].getClose();
+                int scaled = (int)((value - min) / range * height);
+
+                if (scaled == h)
+                    System.out.print(" * ");
+                else
+                    System.out.print("   ");
+            }
+
+            System.out.println();
+        }
+
+        // X Achse
+        System.out.print("       ");
+        for (int i = 0; i < days; i++)
+            System.out.print("---");
+
+        System.out.println();
+
+        System.out.print("       ");
+        for (int i = 1; i <= days; i++)
+            System.out.printf("%3d", i);
+
+        System.out.println();
+
     }
     
     public void deleteAktie(){

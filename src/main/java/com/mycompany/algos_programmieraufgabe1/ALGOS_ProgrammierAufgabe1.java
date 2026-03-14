@@ -85,6 +85,9 @@ public class ALGOS_ProgrammierAufgabe1 {
                     break;
                 }
                 case 5: {
+                    System.out.println("Geben Sie den Namen der Aktie ein:");
+                    String aname = scan.nextLine();
+                    htable.printChart(aname);
                     break;
                 }
                     

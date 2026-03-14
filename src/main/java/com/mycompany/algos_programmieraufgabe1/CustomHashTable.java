@@ -110,6 +110,16 @@ public class CustomHashTable implements Serializable {
         }
     }
 
+    public void printChart(String name) {
+        Aktie a = searchAktie(name);
+        if (a == null) {
+            System.out.println("Aktie " + name + " wurde nicht gefunden");
+            return;
+        }
+        a.showKurswerte();
+
+    }
+
     public void save(String filename) {
         try {
             ObjectOutputStream out =

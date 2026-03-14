@@ -4,13 +4,14 @@
  */
 package com.mycompany.algos_programmieraufgabe1;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author User
  */
-public class Kurswert {
+public class Kurswert implements Serializable {
        private LocalDate date;
        private double close;
        private long volume;
