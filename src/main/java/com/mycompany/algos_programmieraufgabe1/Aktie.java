@@ -58,7 +58,7 @@ public class Aktie implements Serializable {
         }
 
         double range = max-min;
-        int height=10;
+        int height=15;
         int days=30;
 
         // Chart zeichnen
@@ -78,9 +78,9 @@ public class Aktie implements Serializable {
                 int scaled = (int)((value - min) / range * height);
 
                 if (scaled == h)
-                    System.out.print(" * ");
+                    System.out.print("  *    ");
                 else
-                    System.out.print("   ");
+                    System.out.print("       ");
             }
 
             System.out.println();
@@ -88,14 +88,21 @@ public class Aktie implements Serializable {
 
         // X Achse
         System.out.print("       ");
-        for (int i = 0; i < days; i++)
-            System.out.print("---");
+        for (Kurswert k: kurswerte) {
+            if (k == null)
+                break;
+            System.out.print("-------");
+        }
 
         System.out.println();
 
         System.out.print("       ");
-        for (int i = 1; i <= days; i++)
-            System.out.printf("%3d", i);
+        for (Kurswert k: kurswerte) {
+            if (k==null)
+                break;
+            System.out.printf(" %02d/%02d ", k.getDate().getMonthValue(),k.getDate().getDayOfMonth());
+        }
+
 
         System.out.println();
 
