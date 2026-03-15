@@ -76,7 +76,7 @@ public class ALGOS_ProgrammierAufgabe1 {
                     break;
                 }
                 case 4: {
-                    System.out.println("Geben Sie den Namen der gesuchten Aktie ein:");
+                    System.out.println("Geben Sie den Namen/Kuerzel der gesuchten Aktie ein:");
                     String searchedName = scan.nextLine();
                     Aktie a = htable.searchAktie(searchedName);
                     if(a!= null){

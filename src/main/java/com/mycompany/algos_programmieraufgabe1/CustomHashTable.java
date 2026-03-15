@@ -15,7 +15,7 @@ public class CustomHashTable implements Serializable {
     private int aktieCounter = 0;
 
     CustomHashTable() {
-        arr = new Aktie[2003];
+        arr = new Aktie[4001];
     }
 
     public static int generateHash(String n) {
@@ -60,7 +60,8 @@ public class CustomHashTable implements Serializable {
             if (arr[index] == null)
                 return -1;
 
-            if (arr[index].getName().equals(searchValue)) {
+            if (arr[index].getName().equals(searchValue) ||
+                arr[index].getKurzel().equals(searchValue)) {
                 return index;
             }
         }
@@ -70,17 +71,30 @@ public class CustomHashTable implements Serializable {
 
     public void addAktie(Aktie a) {
         if (aktieCounter < 1000) {
-            int hash = CustomHashTable.generateHash(a.getName());
-            if (arr[hash] != null) {
-                hash = CustomHashTable.quadraticProbe(arr, hash, arr.length);
+            int hashName = CustomHashTable.generateHash(a.getName());
+            if (arr[hashName] != null) {
+                hashName = CustomHashTable.quadraticProbe(arr, hashName, arr.length);
 
             }
-            if (hash == -1) {
+            if (hashName == -1) {
                 System.out.println("Aktie kann nicht in einen index hinzugefuegt werden");
                 return;
             }
-            arr[hash] = a;
-            System.out.println("Aktie in index " + hash + " hinzugefuegt");
+            arr[hashName] = a;
+            System.out.println("Aktie (Name) in index " + hashName + " hinzugefuegt");
+            
+            int hashKuerzel = generateHash(a.getKurzel());
+            if (arr[hashKuerzel] != null) {
+                hashKuerzel = quadraticProbe(arr, hashKuerzel, arr.length);
+            }
+
+            if (hashKuerzel == -1) {
+                System.out.println("Aktie kann nicht eingefuegt werden");
+                return;
+            }
+
+            arr[hashKuerzel] = a;
+            System.out.println("Aktie (Kuerzel) in index " + hashKuerzel + " hinzugefuegt");
             aktieCounter++;
         } else {
             System.out.println("Sie duerfen nicht mehr als 1000 Aktien verwalten");
@@ -88,17 +102,24 @@ public class CustomHashTable implements Serializable {
     }
 
 
-    public Aktie searchAktie(String name) {
-        int hash = CustomHashTable.generateHash(name);
-        if (arr[hash] != null && !arr[hash].getName().equals(name)) {
-            hash = CustomHashTable.quadraticSearch(arr, hash, arr.length, name);
+    public Aktie searchAktie(String value) {
+
+        int hash = generateHash(value);
+
+        if (arr[hash] != null) {
+            if (arr[hash].getName().equals(value) || arr[hash].getKurzel().equals(value)) {
+                return arr[hash];
+            }
         }
-        if (hash == -1 || arr[hash] == null) {
+
+        int index = quadraticSearch(arr, hash, arr.length, value);
+
+        if (index == -1 || arr[index] == null) {
             System.out.println("Aktie ist nicht gefunden");
             return null;
-
         }
-        return arr[hash];
+
+        return arr[index];
     }
 
     public void deleteAktie(String name) {
