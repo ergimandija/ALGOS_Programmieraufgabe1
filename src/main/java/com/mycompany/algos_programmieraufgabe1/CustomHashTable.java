@@ -24,7 +24,7 @@ public class CustomHashTable implements Serializable {
             hash = 31 * hash + c;
 
         }
-        return Math.abs(hash % 2003);
+        return Math.abs(hash % 4001);
     }
 
     public static void showMenu() {
@@ -44,7 +44,7 @@ public class CustomHashTable implements Serializable {
     public static int quadraticProbe(Aktie[] arr, int startIndex, int arraySize) {
         int emptyIndex = -1;
         for (int i = 1; i < arraySize; i++) {
-            if (arr[(startIndex + i * i) % arraySize] == null) {
+            if (arr[(startIndex + i * i) % arraySize] == null || arr[(startIndex + i * i) % arraySize].getName().equals("DELETED")) {
                 emptyIndex = (startIndex + i * i) % arraySize;
                 break;
             }
@@ -72,7 +72,7 @@ public class CustomHashTable implements Serializable {
     public void addAktie(Aktie a) {
         if (aktieCounter < 1000) {
             int hashName = CustomHashTable.generateHash(a.getName());
-            if (arr[hashName] != null) {
+            if (arr[hashName] != null && !arr[hashName].getName().equals("DELETED")) {
                 hashName = CustomHashTable.quadraticProbe(arr, hashName, arr.length);
 
             }
@@ -123,7 +123,7 @@ public class CustomHashTable implements Serializable {
     }
 
     public void deleteAktie(String name) {
-        int hash = CustomHashTable.generateHash(name);
+
         Aktie a = searchAktie(name);
         if (a != null) {
             a.deleteAktie();
