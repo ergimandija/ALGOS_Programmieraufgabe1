@@ -6,18 +6,22 @@ package com.mycompany.algos_programmieraufgabe1;
 
 import java.io.*;
 
-/**
- *
- * @author User
- */
 public class CustomHashTable implements Serializable {
     private Aktie[] arr;
     private int aktieCounter = 0;
 
+    /**
+     * Constructor for CustomHashTable, initializes the array to hold the stocks
+     */
     CustomHashTable() {
         arr = new Aktie[4001];
     }
 
+    /**
+     * Generates a hash value
+     * @param n the string to generate the hash value for
+     * @return the generated hash value
+     */
     public static int generateHash(String n) {
         int hash = 0;
         for (char c : n.toCharArray()) {
@@ -26,7 +30,10 @@ public class CustomHashTable implements Serializable {
         }
         return Math.abs(hash % 2003);
     }
-
+    
+    /**
+     * Prints the menu for the user
+     */
     public static void showMenu() {
         System.out.println("---Menu---");
         System.out.println(
@@ -41,6 +48,13 @@ public class CustomHashTable implements Serializable {
         );
     }
 
+    /**
+     * Searches for an empty index using quadratic probing
+     * @param arr the array to search in
+     * @param startIndex the index to start searching from
+     * @param arraySize the size of the array
+     * @return the index of the empty slot, or -1 if not found
+     */
     public static int quadraticProbe(Aktie[] arr, int startIndex, int arraySize) {
         int emptyIndex = -1;
         for (int i = 1; i < arraySize; i++) {
@@ -52,6 +66,14 @@ public class CustomHashTable implements Serializable {
         return emptyIndex;
     }
 
+    /**
+     * Searches for a stock using quadratic search
+     * @param arr the array to search in
+     * @param startIndex the index to start searching from
+     * @param arraySize the size of the array
+     * @param searchValue the value to search for
+     * @return the index of the stock if found, or -1 if not found
+     */
     public static int quadraticSearch(Aktie[] arr, int startIndex, int arraySize, String searchValue) {
         int searchIndex = -1;
         for (int i = 1; i < arraySize; i++) {
@@ -68,7 +90,10 @@ public class CustomHashTable implements Serializable {
         return searchIndex;
     }
 
-
+    /**
+     * Adds a stock to the hashtable
+     * @param a the stock to add
+     */
     public void addAktie(Aktie a) {
         if (aktieCounter < 1000) {
             int hashName = CustomHashTable.generateHash(a.getName());
@@ -101,7 +126,11 @@ public class CustomHashTable implements Serializable {
         }
     }
 
-
+    /**
+     * Searches for a stock with the given name or abbreviation
+     * @param value the value to search for
+     * @return the stock if found, null otherwise
+     */
     public Aktie searchAktie(String value) {
 
         int hash = generateHash(value);
@@ -115,13 +144,17 @@ public class CustomHashTable implements Serializable {
         int index = quadraticSearch(arr, hash, arr.length, value);
 
         if (index == -1 || arr[index] == null) {
-            System.out.println("Aktie ist nicht gefunden");
+            System.out.println("Aktie wurde nicht gefunden");
             return null;
         }
 
         return arr[index];
     }
 
+    /**
+     * Deletes the stock with the given name
+     * @param name the name of the stock to delete
+     */
     public void deleteAktie(String name) {
         int hash = CustomHashTable.generateHash(name);
         Aktie a = searchAktie(name);
@@ -131,6 +164,10 @@ public class CustomHashTable implements Serializable {
         }
     }
 
+    /**
+     * prints the chart for the given stock name
+     * @param name the name of the stock to print the chart for
+     */
     public void printChart(String name) {
         Aktie a = searchAktie(name);
         if (a == null) {
@@ -141,6 +178,10 @@ public class CustomHashTable implements Serializable {
 
     }
 
+    /**
+     * Saves the hashtable to a file
+     * @param filename the name of the file to save the hashtable to
+     */
     public void save(String filename) {
         try {
             ObjectOutputStream out =
@@ -156,6 +197,10 @@ public class CustomHashTable implements Serializable {
         }
     }
 
+    /**
+     * Loads the hashtable from a file
+     * @param filename the name of the file to load the hashtable from
+     */
     public void load(String filename) {
         try {
             ObjectInputStream in =

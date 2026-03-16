@@ -16,6 +16,13 @@ public class Aktie implements Serializable {
     private String kurzel;
     private Kurswert[] kurswerte;
     private int kursWertCounter = 0;
+
+    /**
+     * Constructor for Aktie, initializes the name, WKN, kurzel and an array to hold the stock values
+     * @param name the name of the stock
+     * @param WKN the WKN of the stock
+     * @param kurzel the kuerzel of the stock
+     */
     Aktie(String name,String WKN, String kurzel){
         this.name = name;
         this.WKN = WKN;
@@ -23,7 +30,7 @@ public class Aktie implements Serializable {
         kurswerte = new Kurswert[30];
         
     }
-    
+     
     public String getName(){
         return name;
     }
@@ -36,6 +43,10 @@ public class Aktie implements Serializable {
         return WKN;
     }
     
+    /**
+     * Adds a stock value to the array
+     * @param k the stock value to add
+     */
     public void addKurswert(Kurswert k){
         if(kursWertCounter < 30){
         kurswerte[kursWertCounter] = k;
@@ -45,6 +56,9 @@ public class Aktie implements Serializable {
         }
     }
     
+    /**
+     * Displays the stock values in a chart
+     */
     public void showKurswerte(){
         System.out.println("");
         double min=0,max=0;
@@ -108,6 +122,9 @@ public class Aktie implements Serializable {
 
     }
     
+    /**
+     * Deletes the stock
+     */
     public void deleteAktie(){
         this.WKN = "";
         this.kurswerte = null;
@@ -116,7 +133,9 @@ public class Aktie implements Serializable {
         this.name = "DELETED";
         
     }
-    
+    /**
+     * Displays the stock information
+     */
     public void showAktie(){
         System.out.println("---Gefundene Aktie---");
         System.out.println("Name:" + this.name);
